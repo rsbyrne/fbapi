@@ -1,7 +1,7 @@
 FROM python:3.8-slim
 MAINTAINER https://github.com/rsbyrne/
 
-ADD .
+ADD . /fbapi
 
 RUN apt-get update -y
 RUN apt-get install -y apt-utils
