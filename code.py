@@ -9,7 +9,7 @@ def format_string(string):
 def check_string(string):
     return string.replace(' ', '-').replace('-', '').isnumeric()
 
-def download(linksDict, tempDir, outDir, keys = None, notkeys = set()):
+def download(linksDict, tempDir, outDir, outExt, keys = None, notkeys = set()):
     print("Working...")
     if keys is None:
         keys = linksDict.keys()
@@ -27,7 +27,7 @@ def download(linksDict, tempDir, outDir, keys = None, notkeys = set()):
             os.rename(oldFilepath, newFilepath)
             assert not len(os.listdir(tempDir))
             print("Downloaded:", newFilename)
-    print("Done!")
+    print("Done.")
 
 class Driver:
     def __init__(self, options, profile, tempDir = None):
@@ -69,6 +69,7 @@ def pull_datas(dataURL, loginName, loginPass, dataMime, outDir, outExt):
     options.add_argument("--headless")
 
     with Driver(options, profile, tempDir) as driver:
+        print("Logging in...")
         driver.get(loginURL)
         username = driver.find_element_by_id("email")
         password = driver.find_element_by_id("pass")
@@ -76,10 +77,16 @@ def pull_datas(dataURL, loginName, loginPass, dataMime, outDir, outExt):
         username.send_keys(loginName)
         password.send_keys(loginPass)
         submit.click()
+        print("Logged in.")
+        print("Finding data...")
         driver.get(dataURL)
         linksDict = {
             format_string(elem.text): elem \
                 for elem in driver.find_elements_by_xpath("//a[@href]") \
                     if check_string(elem.text)
             }
-        download(linksDict, tempDir, outDir)
+        if len(linksDict) > 0:
+            print("Data found.")
+            download(linksDict, tempDir, outDir, outExt)
+        else:
+            print("No data found at that URL. Aborting.")
