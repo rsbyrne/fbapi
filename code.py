@@ -65,7 +65,9 @@ def download_all(
             oldFilename = os.listdir(downloadDir)[0]
             oldFilepath = os.path.join(downloadDir, oldFilename)
             newFilepath = os.path.join(outDir, newFilename)
+            time.sleep(1.)
             shutil.copyfile(oldFilepath, newFilepath)
+            time.sleep(1.)
             wait_check(lambda: os.path.isfile(newFilepath), maxWait = maxWait)
             for filename in os.listdir(downloadDir):
                 filepath = os.path.join(downloadDir, filename)
