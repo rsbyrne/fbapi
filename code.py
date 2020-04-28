@@ -3,6 +3,7 @@ import shutil
 from urllib.parse import urlparse
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
+from selenium.common import exceptions
 
 def format_string(string):
     return string.replace(' ', '-')
@@ -69,17 +70,36 @@ def pull_datas(dataURL, loginName, loginPass, dataMime, outDir, outExt):
     options.add_argument("--headless")
 
     with Driver(options, profile, tempDir) as driver:
+
+        print("Navigating to login page...")
+        try:
+            driver.get(loginURL)
+        except exceptions.WebDriverException:
+            raise ValueError("No login page found!")
+        print("Navigated to login page.")
+
         print("Logging in...")
-        driver.get(loginURL)
         username = driver.find_element_by_id("email")
         password = driver.find_element_by_id("pass")
         submit   = driver.find_element_by_id("loginbutton")
         username.send_keys(loginName)
         password.send_keys(loginPass)
         submit.click()
+        try:
+            loginForm = driver.find_element_by_id("login_form")
+            raise ValueError("Bad login credentials!")
+        except exceptions.NoSuchElementException:
+            pass
         print("Logged in.")
+
+        print("Navigating to data page...")
+        try:
+            driver.get(dataURL)
+        except exceptions.WebDriverException:
+            raise ValueError("Bad data URL!")
+        print("Navigated to data page.")
+
         print("Finding data...")
-        driver.get(dataURL)
         linksDict = {
             format_string(elem.text): elem \
                 for elem in driver.find_elements_by_xpath("//a[@href]") \
