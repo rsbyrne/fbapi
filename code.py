@@ -41,6 +41,11 @@ def wait_check(
                 except:
                     pass
 
+def _file_check(fp):
+    if os.path.isfile(fp):
+        return os.stat(fp).st_size
+    return False
+
 def download_all(
         linksDict,
         downloadDir,
@@ -62,17 +67,26 @@ def download_all(
             link = linksDict[key]
             link.click()
             wait_check(lambda: len(os.listdir(downloadDir)), maxWait = maxWait)
-            oldFilename = os.listdir(downloadDir)[0]
+            checkFilenames = [
+                fp for fp in os.listdir(downloadDir) \
+                    if fp.endswith(outExt)
+                ]
+            assert len(checkFilenames) == 1
+            oldFilename = checkFilenames[0]
             oldFilepath = os.path.join(downloadDir, oldFilename)
+            wait_check(lambda: _file_check(oldFilepath), maxWait = maxWait)
             newFilepath = os.path.join(outDir, newFilename)
             time.sleep(1.)
             shutil.copyfile(oldFilepath, newFilepath)
             time.sleep(1.)
-            wait_check(lambda: os.path.isfile(newFilepath), maxWait = maxWait)
+            wait_check(lambda: _file_check(newFilepath), maxWait = maxWait)
             for filename in os.listdir(downloadDir):
                 filepath = os.path.join(downloadDir, filename)
                 os.remove(filepath)
-                wait_check(lambda: not os.path.isfile(filepath), maxWait = maxWait)
+                wait_check(
+                    lambda: not os.path.isfile(filepath),
+                    maxWait = maxWait
+                    )
             print("Downloaded:", newFilename)
     print("Downloaded all.")
 
@@ -101,7 +115,15 @@ class TempDir:
         shutil.rmtree(self.path, ignore_errors = True)
         wait_check(lambda: not os.path.isdir(self.path), maxWait = self.maxWait)
 
-def pull_datas(dataURL, loginName, loginPass, outDir, dataMime, outExt, maxWait = MAXWAIT):
+def pull_datas(
+        dataURL,
+        loginName,
+        loginPass,
+        outDir,
+        dataMime,
+        outExt,
+        maxWait = MAXWAIT
+        ):
 
     parsed = urlparse(dataURL)
     loginURL = '://'.join(parsed[:2])
@@ -160,6 +182,12 @@ def pull_datas(dataURL, loginName, loginPass, outDir, dataMime, outExt, maxWait 
                 }
             if len(linksDict) > 0:
                 print("Data found.")
-                download_all(linksDict, downloadDir, outDir, outExt, maxWait = maxWait)
+                download_all(
+                    linksDict,
+                    downloadDir,
+                    outDir,
+                    outExt,
+                    maxWait = maxWait
+                    )
             else:
                 print("No data found at that URL. Aborting.")
