@@ -2,8 +2,6 @@ import sys
 
 import code
 
-raise Exception
-
 filepath = sys.argv[0]
 dataURL = sys.argv[1]
 loginName = sys.argv[2]
