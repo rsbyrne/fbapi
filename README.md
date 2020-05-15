@@ -10,7 +10,7 @@ This is a *Selenium*-based containerised API for downloading data from *Facebook
 
 1. Either clone the repository or simply copy `fb_pull.sh` to your computer.
 2. Open a *bash* shell. (On *Windows* with *WSL* installed, just open a *PowerShell* and type `bash`)
-3. Run the script with the following call signature (you may need `sudo` permission):
+3. Run the script with the following call signature (you may need `sudo` permission). (Note that the nominated output directory and all intermediate directories will be created if they do not already exist.)
 ```bash
 $ sudo sh fb_pull.sh <FB_DATA_PAGE_URL> <FB_USERNAME> <FB_PASSWORD> <OUTPUT_DIRECTORY>
 ```
@@ -32,7 +32,7 @@ If you do not want to go down this route, however, this repository also provides
 1. Copy or download the file *pull-fb.ps1* from this repository to your local machine.
 2. Open a *PowerShell* (search for it in the search bar if you are uncertain) and be sure to **run as administrator** (by right-clicking on the icon).
 3. Type `set-executionpolicy remotesigned`, hit `Enter`, and hit `A`. (Be aware that doing this may make your computer more vulnerable to malware.)
-4. Open a new *PowerShell* **not** as an administrator. Navigate to where you have stored the *pull-fb.ps1* script and type the following command:
+4. Open a new *PowerShell* **not** as an administrator. Navigate to where you have stored the *pull-fb.ps1* script and type the following command. (Note that the nominated output directory and all intermediate directories will be created if they do not already exist.)
 ```powershell
 C:\Users\YourName> .\pull-fb <FB_DATA_PAGE_URL> <FB_USERNAME> <FB_PASSWORD> <OUTPUT_DIRECTORY>
 ```
@@ -63,6 +63,10 @@ A. Try providing an absolute filepath for your output directory; sometimes this 
 Q. Should the output path be provided relative to my current working directory, or the script's directory?
 
 A. You can call the script from any directory! In the instructions above, it is suggested to navigate to the script's directory before running it but that is not necessary - this is just for ease of explanation. The provided output path can be either absolute or relative to your current working directory. (It is however recommended to provide an absolute filepath if possible - this is a little more foolproof.)
+
+Q. Should I provide a *Unix*-like filepath or a *Windows*-like filepath?
+
+A. The filepath argument should be provided using whatever syntax is natural for the terminal you are using: e.g. backslashes should be used in *PowerShell*, forward slashes in *Bash*.
 
 Q. Can I reuse the code?
 
