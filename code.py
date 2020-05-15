@@ -7,7 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.common import exceptions
 
-MAXWAIT = 60.
+MAXWAIT = 600.
 
 def format_string(string):
     return string.replace(' ', '-')
