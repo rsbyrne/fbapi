@@ -2,14 +2,14 @@
 
 ## What is it?
 
-This is a Selenium-based containerised API for downloading data from Facebook's Data For Good portal through the command line. Its only prerequisite is an Facebook account authorised for Geoinsights access and a working Docker daemon. Alternatively, you can use the code and the instructions in the Dockerfile to configure a local install.
+This is a *Selenium*-based containerised API for downloading data from *Facebook*'s *Data For Good* portal through the command line. Its only prerequisite is a *Facebook* account authorised for *Geoinsights* access and a working *Docker* install. Alternatively, you can use the code and the instructions in the Dockerfile contained in this repository to configure a local install.
 
 ## How do I use it?
 
-### On Unix-type systems (Linux, Apple, Windows Subsystem for Linux)
+### On *Unix*-type systems (Linux, Apple, Windows Subsystem for Linux)
 
 1. Either clone the repository or simply copy `fb_pull.sh` to your computer.
-2. Open a *bash* shell. (On Windows with WSL installed, just open a *PowerShell* and type `bash`)
+2. Open a *bash* shell. (On *Windows* with *WSL* installed, just open a *PowerShell* and type `bash`)
 3. Run the script with the following call signature (you may need `sudo` permission):
 ```console
 $ sudo sh fb_pull.sh <FB_DATA_PAGE_URL> <FB_USERNAME> <FB_PASSWORD> <OUTPUT_DIRECTORY>
@@ -22,10 +22,10 @@ $ sudo sh fb_pull.sh https://www.facebook.com/geoinsights-portal/downloads/?id=2
 
 ### On Windows
 
-The best way to use this API on Windows is to use the Windows Subsystem for Linux (WSL), Microsoft's official built-in Unix-like interface which was introduced in Windows 10. Once installed, WSL will allow you to use any Linux-based applications natively on your Windows machine. WSL is a massively underrated improvement to any Windows machine and is highly recommended. To enable it, follow these instructions:
+The best way to use this API on *Windows* is to use the *Windows Subsystem for Linux* (*WSL*), Microsoft's official built-in Unix-like interface which was introduced in *Windows 10*. Once installed, *WSL* will allow you to use any Linux-based applications natively on your *Windows* machine. *WSL* is a massively underrated feature for any *Windows* machine and is highly recommended. To enable it, follow these instructions:
 
-1. Install WSL: https://docs.microsoft.com/en-us/windows/wsl/install-win10
-2. Connect your *Docker for Windows* (a.k.a. *Docker Desktop*) to your WSL: https://code.visualstudio.com/blogs/2020/03/02/docker-in-wsl2
+1. Install *WSL*: https://docs.microsoft.com/en-us/windows/wsl/install-win10
+2. Connect your *Docker for Windows* (a.k.a. *Docker Desktop*) to your *WSL*: https://code.visualstudio.com/blogs/2020/03/02/docker-in-wsl2
 
 If you do not want to go down this route, however, this repository also provides a *PowerShell* script. Follow these instructions to use it:
 
@@ -34,11 +34,11 @@ If you do not want to go down this route, however, this repository also provides
 3. Type `set-executionpolicy remotesigned`, hit `Enter`, and hit `A`. (Be aware that doing this may make your computer more vulnerable to malware.)
 4. Open a new *PowerShell* **not** as an administrator. Navigate to where you have stored the *pull-fg.ps1* script and type the following command:
 ```console
-
+C:\Users\YourName> .\pull-fb <FB_DATA_PAGE_URL> <FB_USERNAME> <FB_PASSWORD> <OUTPUT_DIRECTORY>
 ```
-For example, for a user named *misterwindowsbunny@hotmail.com* whose password is *windowsbunny32* who wants to download the tile-based population data for Victoria, Australia, to the local directory *C:\Users\MisterBunny\mydata\*:
+For example, for a user named *misterwindowsbunny@hotmail.com* whose password is *windowsbunny32* who wants to download the tile-based population data for Victoria, Australia, to the local directory *C:\Users\MisterBunny\mydata\\*:
 ```console
-
+C:\Users\MisterBunny> .\pull-fb 'https://www.facebook.com/geoinsights-portal/downloads/?id=223808228714910' 'misterwindowsbunny@hotmail.com' 'windowsbunny32' C:\Users\MisterBunny\mydata\
 ```
 5. Done! After seeing some prompts in your *PowerShell*, you should eventually be informed that your downloads are complete. The desired files should be in your nominated output directory. Future downloads will refrain from duplicating pre-existing files, so while the first download may be quite slow, further updates will be considerably quicker.
 
@@ -58,7 +58,7 @@ A. While Facebook does not provide or encourage a command-line API for their dat
 
 Q. It's just not working for me!
 
-A. Try providing an absolute filepath for your output directory; sometimes this can cause trouble with the Docker mount. Check your Facebook credentials by logging in the usual way. Try clearing your Docker caches and pulling a fresh image. Make sure your `fb_pull.sh` script is up to date. Make sure the path to your target directory has the appropriate permissions.
+A. Try providing an absolute filepath for your output directory; sometimes this can cause trouble with the *Docker* mount. Check your *Facebook* credentials by logging in the usual way. Try clearing your *Docker* caches and pulling a fresh image. Make sure your `fb_pull.sh` script is up to date. Make sure the path to your target directory has the appropriate permissions. Check that your *Docker* instance is running correctly by trying the command `docker run hello-world`. Make sure you are logged in to *DockerHub* by typing `docker login -u <MYUSERNAME> -p <MYPASSWORD>`.
 
 Q. Can I reuse the code?
 
