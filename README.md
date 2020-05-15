@@ -60,6 +60,10 @@ Q. It's just not working for me!
 
 A. Try providing an absolute filepath for your output directory; sometimes this can cause trouble with the *Docker* mount. Check your *Facebook* credentials by logging in the usual way. Try clearing your *Docker* caches and pulling a fresh image: the command `docker system prune -a` may be helpful. Make sure your `fb_pull.sh` script is up to date. Make sure the path to your target directory has the appropriate permissions. Check that your *Docker* instance is running correctly by trying the command `docker run hello-world`. Make sure you are logged in to *DockerHub* by typing `docker login -u <MYUSERNAME> -p <MYPASSWORD>`.
 
+Q. Should the output path be provided relative to my current working directory, or the script's directory?
+
+A. You can call the script from any directory! In the instructions above, it is suggested to navigate to the script's directory before running it but that is not necessary - this is just for ease of explanation. The provided output path can be either absolute or relative to your current working directory. (It is however recommended to provide an absolute filepath if possible - this is a little more foolproof.)
+
 Q. Can I reuse the code?
 
 A. The code is provided as is, absolutely free of charge, with no strings attached, and no liability retained by the developer.
