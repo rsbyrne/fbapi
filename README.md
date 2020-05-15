@@ -20,7 +20,7 @@ $ sudo sh fb_pull.sh https://www.facebook.com/geoinsights-portal/downloads/?id=2
 ```
 4. That's it! Your files should be there in the specified directory. If in future you attempt to download the same data to the same directory, the API will recognise the duplication and skip the redundant files, only downloading what is new.
 
-### On Windows
+### On *Windows 10*
 
 The best way to use this API on *Windows* is to use the *Windows Subsystem for Linux* (*WSL*), Microsoft's official built-in Unix-like interface which was introduced in *Windows 10*. Once installed, *WSL* will allow you to use any Linux-based applications natively on your *Windows* machine. *WSL* is a massively underrated feature for any *Windows* machine and is highly recommended. To enable it, follow these instructions:
 
