@@ -11,11 +11,11 @@ This is a *Selenium*-based containerised API for downloading data from *Facebook
 1. Either clone the repository or simply copy `fb_pull.sh` to your computer.
 2. Open a *bash* shell. (On *Windows* with *WSL* installed, just open a *PowerShell* and type `bash`)
 3. Run the script with the following call signature (you may need `sudo` permission):
-```console
+```bash
 $ sudo sh fb_pull.sh <FB_DATA_PAGE_URL> <FB_USERNAME> <FB_PASSWORD> <OUTPUT_DIRECTORY>
 ```
 For example, for a user named *misterfunnybunny@gmail.com* whose password is *cutebunny64* who wants to download the tile-based population data for Victoria, Australia, to the local directory */home/myfiles/mydata*:
-```console
+```bash
 $ sudo sh fb_pull.sh https://www.facebook.com/geoinsights-portal/downloads/?id=223808228714910 misterfunnybunny@gmail.com cutebunny64 /home/myfiles/mydata
 ```
 4. That's it! Your files should be there in the specified directory. If in future you attempt to download the same data to the same directory, the API will recognise the duplication and skip the redundant files, only downloading what is new.
@@ -33,11 +33,11 @@ If you do not want to go down this route, however, this repository also provides
 2. Open a *PowerShell* (search for it in the search bar if you are uncertain) and be sure to **run as administrator** (by right-clicking on the icon).
 3. Type `set-executionpolicy remotesigned`, hit `Enter`, and hit `A`. (Be aware that doing this may make your computer more vulnerable to malware.)
 4. Open a new *PowerShell* **not** as an administrator. Navigate to where you have stored the *pull-fg.ps1* script and type the following command:
-```console
+```powershell
 C:\Users\YourName> .\pull-fb <FB_DATA_PAGE_URL> <FB_USERNAME> <FB_PASSWORD> <OUTPUT_DIRECTORY>
 ```
 For example, for a user named *misterwindowsbunny@hotmail.com* whose password is *windowsbunny32* who wants to download the tile-based population data for Victoria, Australia, to the local directory *C:\Users\MisterBunny\mydata\\*:
-```console
+```powershell
 C:\Users\MisterBunny> .\pull-fb 'https://www.facebook.com/geoinsights-portal/downloads/?id=223808228714910' 'misterwindowsbunny@hotmail.com' 'windowsbunny32' C:\Users\MisterBunny\mydata\
 ```
 5. Done! After seeing some prompts in your *PowerShell*, you should eventually be informed that your downloads are complete. The desired files should be in your nominated output directory. Future downloads will refrain from duplicating pre-existing files, so while the first download may be quite slow, further updates will be considerably quicker.
