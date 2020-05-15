@@ -32,7 +32,7 @@ If you do not want to go down this route, however, this repository also provides
 1. Copy or download the file *pull-fb.ps1* from this repository to your local machine.
 2. Open a *PowerShell* (search for it in the search bar if you are uncertain) and be sure to **run as administrator** (by right-clicking on the icon).
 3. Type `set-executionpolicy remotesigned`, hit `Enter`, and hit `A`. (Be aware that doing this may make your computer more vulnerable to malware.)
-4. Open a new *PowerShell* **not** as an administrator. Navigate to where you have stored the *pull-fg.ps1* script and type the following command:
+4. Open a new *PowerShell* **not** as an administrator. Navigate to where you have stored the *pull-fb.ps1* script and type the following command:
 ```powershell
 C:\Users\YourName> .\pull-fb <FB_DATA_PAGE_URL> <FB_USERNAME> <FB_PASSWORD> <OUTPUT_DIRECTORY>
 ```
