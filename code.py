@@ -7,7 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.common import exceptions
 
-MAXWAIT = 1800.
+MAXWAIT = 10.
 
 def format_string(string):
     return string.replace(' ', '-')
@@ -100,13 +100,12 @@ class Driver:
             )
         return self.driver
     def __exit__(self, *args):
-        print("An error has occurred. Saving screenshot and exiting.")
+        print("An error has occurred. Saving screenshot to target directory and exiting.")
         try:
-            print("Foo")
             errorFilePath = os.path.join(self.logDir, str(int(time.time())) + '.png')
             self.driver.save_screenshot(errorFilePath)
         except:
-            pass
+            print("Another error occurred: could not save screenshot.")
         self.driver.quit()
         if os.path.isfile('geckodriver.log'):
             os.remove('geckodriver.log')
