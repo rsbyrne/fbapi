@@ -91,8 +91,8 @@ def download_all(
     print("Downloaded all.")
 
 class Driver:
-    def __init__(self, options, profile):
-        self.options, self.profile = options, profile
+    def __init__(self, options, profile, logDir = '.'):
+        self.options, self.profile, self.logDir = options, profile, logDir
     def __enter__(self):
         self.driver = webdriver.Firefox(
             options = self.options,
@@ -100,6 +100,13 @@ class Driver:
             )
         return self.driver
     def __exit__(self, *args):
+        print("An error has occurred. Saving screenshot and exiting.")
+        try:
+            print("Foo")
+            errorFilePath = os.path.join(self.logDir, str(int(time.time())) + '.png')
+            self.driver.save_screenshot(errorFilePath)
+        except:
+            pass
         self.driver.quit()
         if os.path.isfile('geckodriver.log'):
             os.remove('geckodriver.log')
@@ -126,7 +133,8 @@ def pull_datas(
         ):
 
     parsed = urlparse(dataURL)
-    loginURL = '://'.join(parsed[:2])
+#     loginURL = '://'.join(parsed[:2])
+    loginURL = 'https://en-gb.facebook.com/'
 
     outDir = os.path.abspath(outDir)
     if not os.path.isdir(outDir):
@@ -144,7 +152,7 @@ def pull_datas(
         options = Options()
         options.add_argument("--headless")
 
-        with Driver(options, profile) as driver:
+        with Driver(options, profile, outDir) as driver:
 
             print("Navigating to login page...")
             try:
@@ -154,6 +162,7 @@ def pull_datas(
             print("Navigated to login page.")
 
             print("Logging in...")
+            
             username = driver.find_element_by_id("email")
             password = driver.find_element_by_id("pass")
             submit   = driver.find_element_by_id("loginbutton")

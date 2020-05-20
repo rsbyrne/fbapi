@@ -9,5 +9,5 @@ $MOUNTTO = '/mnt'
 $IMAGE = 'rsbyrne/fbapi'
 $SCRIPTPATH = '/fbapi/run.py'
 New-Item -ItemType Directory -Force -Path $outDir
-docker run -v ${MOUNTFROM}:${MOUNTTO} -it --shm-size 2g $IMAGE python $SCRIPTPATH $dataURL $loginName $loginPass $MOUNTTO $dataMime $outExt
+docker run -v ${MOUNTFROM}:${MOUNTTO} --shm-size 2g $IMAGE python $SCRIPTPATH $dataURL $loginName $loginPass $MOUNTTO $dataMime $outExt
 echo 'Done.'

@@ -10,5 +10,5 @@ MOUNTTO='/mnt'
 IMAGE='rsbyrne/fbapi'
 SCRIPTPATH='/fbapi/run.py'
 mkdir -p $outDir
-docker run -v $MOUNTFROM:$MOUNTTO -it --shm-size 2g $IMAGE \
+docker run -v $MOUNTFROM:$MOUNTTO --shm-size 2g $IMAGE \
   python $SCRIPTPATH $dataURL $loginName $loginPass $MOUNTTO $dataMime $outExt
