@@ -14,6 +14,11 @@ def format_string(string):
 def check_string(string):
     return string.replace(' ', '-').replace('-', '').isnumeric()
 
+def random_sleep(factor = 1.):
+    sleepTime = (random.random() + 1.) * factor
+    time.sleep(sleepTime)
+    return sleepTime
+
 def wait_check(
         condition,
         message = None,
@@ -26,8 +31,7 @@ def wait_check(
     while not condition():
         if not message is None:
             print(message)
-        waitTime = (random.random() + 1.) * waitInterval
-        time.sleep(waitTime)
+        waitTime = random_sleep(waitInterval)
         waited += waitTime
         if not maxWait is None:
             if waited > maxWait:
@@ -60,6 +64,7 @@ def download_all(
         keys = linksDict.keys()
     keys = sorted([key for key in keys if key not in notkeys])
     for key in keys:
+        random_sleep(1.)
         newFilename = key + outExt
         if newFilename in os.listdir(outDir):
             print("File already exists - skipping.")
@@ -76,9 +81,9 @@ def download_all(
             oldFilepath = os.path.join(downloadDir, oldFilename)
             wait_check(lambda: _file_check(oldFilepath), maxWait = maxWait)
             newFilepath = os.path.join(outDir, newFilename)
-            time.sleep(1.)
+            random_sleep(1.)
             shutil.copyfile(oldFilepath, newFilepath)
-            time.sleep(1.)
+            random_sleep(1.)
             wait_check(lambda: _file_check(newFilepath), maxWait = maxWait)
             for filename in os.listdir(downloadDir):
                 filepath = os.path.join(downloadDir, filename)
@@ -161,6 +166,8 @@ def pull_datas(
             print("Navigated to login page.")
 
             print("Logging in...")
+
+            random_sleep(1.)
             
             username = driver.find_element_by_id("email")
             password = driver.find_element_by_id("pass")
@@ -175,12 +182,16 @@ def pull_datas(
                 pass
             print("Logged in.")
 
+            random_sleep(1.)
+
             print("Navigating to data page...")
             try:
                 driver.get(dataURL)
             except exceptions.WebDriverException:
                 raise ValueError("Bad data URL!")
             print("Navigated to data page.")
+
+            random_sleep(1.)
 
             print("Finding data...")
             linksDict = {
