@@ -104,16 +104,18 @@ class Driver:
             firefox_profile = self.profile
             )
         return self.driver
-    def __exit__(self, *args):
-        print("An error has occurred. Saving screenshot to target directory and exiting.")
-        try:
-            errorFilePath = os.path.join(self.logDir, str(int(time.time())) + '.png')
-            self.driver.save_screenshot(errorFilePath)
-        except:
-            print("Another error occurred: could not save screenshot.")
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        if exc_value:
+            print("An error has occurred. Saving screenshot to target directory and exiting.")
+            try:
+                errorFilePath = os.path.join(self.logDir, str(int(time.time())) + '.png')
+                self.driver.save_screenshot(errorFilePath)
+            except:
+                print("Another error occurred: could not save screenshot.")
         self.driver.quit()
         if os.path.isfile('geckodriver.log'):
             os.remove('geckodriver.log')
+        return exc_value
 
 class TempDir:
     def __init__(self, path, maxWait = None):
