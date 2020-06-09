@@ -64,11 +64,11 @@ def download_all(
         keys = linksDict.keys()
     keys = sorted([key for key in keys if key not in notkeys])
     for key in keys:
-        random_sleep(1.)
         newFilename = key + outExt
         if newFilename in os.listdir(outDir):
             print("File already exists - skipping.")
         else:
+            random_sleep(1.)
             link = linksDict[key]
             link.click()
             wait_check(lambda: len(os.listdir(downloadDir)), maxWait = maxWait)
@@ -173,7 +173,7 @@ def pull_datas(
             
             username = driver.find_element_by_id("email")
             password = driver.find_element_by_id("pass")
-            submit   = driver.find_element_by_id("loginbutton")
+            submit = driver.find_element_by_id("loginbutton")
             username.send_keys(loginName)
             password.send_keys(loginPass)
             submit.click()
